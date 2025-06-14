@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: agentmanagement-backend
+    runtime: docker
+    plan: free
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: PORT
+        value: 8080
+      - key: DATABASE_URL
+        fromDatabase:
+          name: agentmanagement-db
+          property: connectionString
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: agentmanagement-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: agentmanagement-db
+          property: password
+
+databases:
+  - name: agentmanagement-db
+    databaseName: agentmanagement
+    user: agentmanagement_user
+    plan: free
+    # Database connection info:
+    # Hostname: dpg-d165kom3jp1c73fb6uu0-a
+    # Port: 5432
+    # Internal URL: postgresql://agentmanagement_user:FuBPakB8bNwbmQlDfHMzlWuPjB3MZrqY@dpg-d165kom3jp1c73fb6uu0-a/agentmanagement 
